@@ -11,11 +11,17 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
-    private CharacterController _characterController;
+    private CharacterController characterController;
+
+    private Animator animator;
 
     private void Awake()
     {
-        _characterController = GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     public void Move(InputAction.CallbackContext callbackContext)
@@ -26,6 +32,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         moveInput.Normalize();
-        _characterController.Move(new Vector3(moveInput.x, 0, moveInput.y) * walkSpeed * Time.deltaTime);
+        characterController.Move(new Vector3(moveInput.x, 0, moveInput.y) * walkSpeed * Time.deltaTime);
+        
+        bool isRunning = moveInput.sqrMagnitude != 0;
+
+        animator.SetBool("run", isRunning);
     }
 }
