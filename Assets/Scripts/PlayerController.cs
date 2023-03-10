@@ -18,8 +18,6 @@ public class PlayerController : NetworkBehaviour
 
     private Animator animator;
 
-    private CinemachineFreeLook cinemachineFreeLook;
-
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -27,8 +25,6 @@ public class PlayerController : NetworkBehaviour
 
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-
-        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
     public void Move(InputAction.CallbackContext callbackContext)
@@ -44,16 +40,5 @@ public class PlayerController : NetworkBehaviour
         bool isRunning = moveInput.sqrMagnitude != 0;
 
         animator.SetBool("run", isRunning);
-    }
-
-    private void OnSceneChanged(Scene scene, LoadSceneMode loadSceneMode)
-    {
-        if (scene.buildIndex != 0)
-        {
-            cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
-
-            cinemachineFreeLook.Follow = this.transform;
-            cinemachineFreeLook.LookAt = this.transform;
-        }
     }
 }

@@ -886,7 +886,7 @@ MonoBehaviour:
   - {fileID: 1842670937}
   - {fileID: 955342784}
   - {fileID: 1871003810}
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 1726381420, guid: 2dab666c0a33b1d46b05db8a86c3b88b, type: 3}
 --- !u!4 &1530117849
 Transform:
   m_ObjectHideFlags: 0

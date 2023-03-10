@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -14,10 +15,13 @@ public class GameState : MonoBehaviour
     [Tooltip("Make sure this is included in the NetworkManager's list of prefabs!")]
     private NetworkObject m_PlayerPrefab;
 
+    private CinemachineFreeLook cinemachineFreeLook;
+
     private List<Transform> m_PlayerSpawnPointsList = null;
 
     private void Awake()
     {
+        cinemachineFreeLook = FindObjectOfType<CinemachineFreeLook>();
         NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += OnLoadEventCompleted;
     }
 
@@ -52,5 +56,8 @@ public class GameState : MonoBehaviour
 
         newPlayer.transform.position = spawnPoint.position;
         newPlayer.transform.rotation = spawnPoint.rotation;
+
+        cinemachineFreeLook.Follow = newPlayer.transform;
+        cinemachineFreeLook.LookAt = newPlayer.transform;
     }
 }
